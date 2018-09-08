@@ -1,6 +1,4 @@
-# backend
-
-Backend API
+# [api.ist] backend
 
 ## Add Required Configuration
 
@@ -22,7 +20,7 @@ module.exports = {
 }
 ```
 
-## Adding models
+## Adding Models
 
 You can either add models from existing DB using `npm run generate-models` or
 manually write models in _backend/db/models_ directory.
@@ -31,7 +29,7 @@ manually write models in _backend/db/models_ directory.
 
 Associations can be defined inside _db/association_ file.
 
-## Build Setup
+## Setup
 
 ```bash
 # install dependencies
