@@ -7,7 +7,7 @@ Make APIs With Us is your go to web resource when looking for APIs to implement 
 Users will also be able to showcase APIs they have made by displaying them in their (portfolio/profile). This will allow them to gain exposure for their APIs and get users. It will also allow them to get feedback as other users can comment.
 
 
-###Make APIs accommodates 2 main user types:
+### Make APIs accommodates 2 main user types:
 1. Developers looking for APIs they can integrate into their projects
     - this will include Front End and Mobile students who cannot create their own backends/apis yet.
 2. Developer (Make School Students) trying to gain exposure for APIs they have made
@@ -29,4 +29,6 @@ Users will also be able to showcase APIs they have made by displaying them in th
 ## Other Resources/Functionality:
 - Comments on APIs
 - Users will be able to like/favorite apis
-- 
+
+
+##Possible future features:
