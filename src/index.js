@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
 const projectController = require('./controllers/project-controller');
 const commentController = require('./controllers/comment-controller');
+const tagController = require('./controllers/tag-controller');
 const app = express();
 
 //Setup Middleware
@@ -17,6 +18,7 @@ app.use(bodyParser.json());
 //Setup controllers
 app.use('/', projectController);
 app.use('/', commentController);
+app.use('/', tagController);
 
 
 ///setup server

@@ -11,7 +11,7 @@ router.post('/projects/:projectId/comments', (req, res) => {
         console.log(comment)
         return Project.findById(req.params.projectId)
     }).then(project => {
-        console.log(project)
+        console.log(project);
         console.log('------------');
         project.comments.unshift(comment);
         project.save()

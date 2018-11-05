@@ -6,7 +6,7 @@ const Tag = require('../models/tag');
 router.post('/tags', (req, res) => {
     const tag = new Tag(req.body);
     tag.save().then(tag => {
-        res.send('Tag was saved');
+        res.status(200).send('Tag was saved');
     }).catch(console.error)
 })
 
@@ -15,5 +15,11 @@ router.get('/tags', (req, res) => {
     Tag.find({}).then(tags => {
         res.json(tags);
     }).catch(console.error)
+})
+
+router.delete('/tags/:id', (req, res) => {
+    Tag.findOneAndRemove({ _id: req.params.id}).then(tag => {
+        res.status(200).send('Tag was deleted');
+    }).catch(console.error);
 })
 module.exports = router;

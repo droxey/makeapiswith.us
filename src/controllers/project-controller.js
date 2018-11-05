@@ -46,4 +46,15 @@ router.delete('/projects/:id', (req, res) => {
 })
 
 
+/*=====================
+SEARCH API BY TAGS
+===================*/
+router.get('/projects/tags/:tag', (req, res) => {
+    const tag = req.params.tag;
+    Project.find({ tag: tag }).then(projects => {
+        res.json(projects)
+    }).catch(console.error)
+})
+
+
 module.exports = router;
