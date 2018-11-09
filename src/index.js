@@ -1,4 +1,3 @@
-//require packages:
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -6,6 +5,10 @@ const dotenv = require('dotenv').config();
 const apiController = require('./controllers/api-controller');
 const commentController = require('./controllers/comment-controller');
 const tagController = require('./controllers/tag-controller');
+const authController = require('./controllers/auth-controller');
+const passportService = require('./services/passport');
+const passport = require('passport');
+const cookieSession = require('cookie-session');
 const app = express();
 
 //Setup Middleware
@@ -13,12 +16,20 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/make-apis-with-
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error: '))
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
+app.use(cookieSession({
+    maxAge: 25 * 60 * 60 * 1000,
+    keys: [process.env.COOKIE_KEY]
+}));
+///initialize passport (auth)
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //Setup controllers
 app.use('/', apiController);
 app.use('/', commentController);
 app.use('/', tagController);
+app.use('/', authController);
 
 
 ///setup server
