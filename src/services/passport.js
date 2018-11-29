@@ -2,64 +2,44 @@ const passport = require('passport');
 const GithubStrategy = require('passport-github2').Strategy;
 const User = require('../models/user');
 ////Serailize session
-//Directly below is copied from docs example
-passport.serializeUser(function(user, done) {
-  done(null, user);
+////finds user id and attaches to cookie to track a users session
+passport.serializeUser((user, done) => {
+    done(null, user.id)
 });
 
-passport.deserializeUser(function(obj, done) {
-  done(null, obj);
-});
+passport.deserializeUser((id, done) => {
+    User.findById(id).then(user => {
+        done(null, user);
+    })
+})
 
 
-////// NOTE: Below is how I have previously implemented passport
-// passport.serializeUser((user, done) => {
-//     done(null, user.id);
-// });
-//
-// passport.deserializeUser((id, done) => {
-//     User.findById(id).then(user => {
-//         done(null, user);
-//     }).catch(err => {
-//         console.log(err.message);
-//     });
-// });
-
-// passport.use(new GithubStrategy({
-//     clientID: process.env.CLIENT_ID,
-//     ClientSecret: process.env.CLIENT_SECRET,
-//     callbackURL: 'http://localhost:3000/api/auth/callback/'
-// },
-//
-// function(accessToken, refreshToken, params,  profile, done) {
-//     console.log(params);
-//     User.findOne({ githubId: profile.id}).then(user => {
-//         if(user) {
-//             done(err, user);
-//         } else {
-//             const user = new User ({
-//                 email: profile.emails.value,
-//                 githubId: profile.id,
-//                 accessToken: accessToken
-//             })
-//             user.save().then(user => {
-//                 return done(null, profile);
-//             })
-//         }
-//     })
-// }));
-
-
-// ////BELOW IS COPIED FROM DOCS
 passport.use(new GithubStrategy({
     clientID: process.env.CLIENT_ID,
-    ClientSecret: process.env.CLIENT_SECRET,
-    callbackURL: process.env.CALLBACK_URL
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: process.env.CALLBACK_URL,
+    scope: ['user:email']
 },
-function(accessToken, refreshToken, params,  profile, done) {
-    User.findOrCreateOauth(params.info.email).then(function(user) {
-        return done(null, user);
-    }).catch(function(reason) {
-        return done(reason, null);
-    });
-}));
+function(accessToken, refreshToken, profile, done) {
+    User.findOne({ githubId: profile.id }).then(user => {
+        if(user) {
+            done(null, user);
+        } else {
+
+            const user = new User({
+                username: profile.username,
+                email: profile.emails[0].value,
+                profileImage: profile._json.avatar_url,
+                githubId: profile.id,
+                accessToken: accessToken
+
+            })
+            user.save().then(user => {
+                console.log('Below is the saved User:')
+                console.log(user);
+                done(null, user);
+            }).catch(console.error)
+        }
+    }).catch(console.error)
+}
+))

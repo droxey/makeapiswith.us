@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha $(find test -name '*.js')"
+    "test": "mocha",
+    "start": "node index.js"
   },
   "author": "Connor Cahill",
   "license": "ISC",

@@ -11,18 +11,21 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 const app = express();
 
-//Setup Middleware
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/make-apis-with-us', {useNewUrlParser: true});
-mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error: '))
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
+///initialize passport (auth) and setup cookie session
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(cookieSession({
     maxAge: 25 * 60 * 60 * 1000,
     keys: [process.env.COOKIE_KEY]
 }));
-///initialize passport (auth)
-app.use(passport.initialize());
-app.use(passport.session());
+
+//Setup Middleware & Database
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/make-apis-with-us', {useNewUrlParser: true});
+mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error: '))
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+
+
 
 
 //Setup controllers

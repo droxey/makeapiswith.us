@@ -3,7 +3,8 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema ({
     createdAt: { type: Date, default: Date.now() },
-    name: { type: String, required: true },
+    username: { type: String, required: true },
+    profileImage: { type: String, required: false },
     githubId: { type: String, required: true },
     email: { type: String, required: true },
     apis: { type: Schema.Types.ObjectId, ref: 'Api' },
