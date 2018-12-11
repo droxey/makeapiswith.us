@@ -5,6 +5,7 @@ const dotenv = require('dotenv').config();
 const apiController = require('./controllers/api-controller');
 const commentController = require('./controllers/comment-controller');
 const tagController = require('./controllers/tag-controller');
+const port = process.env.PORT || 3000;
 const authController = require('./controllers/auth-controller');
 const userController = require('./controllers/user-controller');
 const passportService = require('./services/passport');
@@ -39,8 +40,8 @@ app.use('/', userController);
 
 
 ///setup server
-app.listen(3000, () => {
-    console.log('App on port: 3000')
+app.listen(port, () => {
+    console.log(`Up and running on ${port}`);
 });
 
 
