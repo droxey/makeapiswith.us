@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "mocha **/*.test.js",
+    "test-watch": "nodemon --exec 'npm test'",
     "start": "node index.js"
   },
   "author": "Connor Cahill",

@@ -7,7 +7,7 @@ const ApiSchema = new Schema ({
     name: { type: String, required: true },
     image: { type: String },
     repoLink: { type: String, required: true },
-    author: { type: String, required: true },
+    author: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     description: { type: String, required: false },
     comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     tags: [{ type: Schema.Types.ObjectId, ref: 'Tag' }]
