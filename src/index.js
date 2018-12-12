@@ -22,7 +22,7 @@ app.use(passport.session());
 
 
 //Setup Middleware & Database
-mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/make-apis-with-us', {useNewUrlParser: true});
+mongoose.connect(process.env.MONGOD_URI || 'mongodb://localhost/make-apis-with-us', {useNewUrlParser: true});
 mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error: '))
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
