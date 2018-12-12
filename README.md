@@ -46,9 +46,14 @@ The required information to POST an API is:
 All APIs can contain comments from other users about their experience using the specific API. To retrieve comments for a specific API, check out the section above titled *"Fetching APIs"*.
 
 In Order to post a comment you must be authenticated and logged in through Github. To Post a comment simply make **POST** request to:
+
     '/apis/:apiId'
+
  passing the _id of a specific API into the url so the server knows what API the comment belongs too. 
 
-*NOTE* You can also delete comments that you are the owner of. In order to do this make a **DELETE** request to:        '/apis/:apiId/comments/:commentId' 
+*NOTE* You can also delete comments that you are the owner of. In order to do this make a **DELETE** request to:
+
+    '/apis/:apiId/comments/:commentId'
+     
 notice this route requires you to pass an API Id and Comment Id so the server knows the specific comment to delete.
 
