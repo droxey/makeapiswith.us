@@ -3,22 +3,8 @@ const router = express.Router();
 const Comment = require('../models/comment');
 const Api = require('../models/api');
 const checkAuth = require('../middleware/check-auth');
-
-
-//POST: creates new comment and stores in API and User
-// router.post('/apis/:apiId/comments', checkAuth, (req, res) => {
-//     const comment = new Comment(req.body);
-//     comment.author = req.user._id;
-//     comment.save().then(comment => {
-//         return Api.findById(req.params.apiId)
-//     }).then(api => {
-//         console.log(api);
-//         api.comments.unshift(comment);
-//         api.save()
-//         return res.send('comment was saved on review')
-//     }).catch(console.error)
-// })
-
+const User = require('../models/user');
+////creates new comment on specific API at POST: /apis/:apiId
 router.post('/apis/:apiId', checkAuth, (req, res) => {
     const comment = new Comment(req.body);
     comment.author = req.user._id;
@@ -36,14 +22,7 @@ router.post('/apis/:apiId', checkAuth, (req, res) => {
         console.log(err.message);
     })
 })
-
-//DELETE: deletes comment IF the user trying to delete comment is the author
-// router.delete('/apis/:apiId/comments/:id', (req, res) => {
-//     Comment.findOneAndRemove(req.params.id).then(comment => {
-//         res.send('Comment was deleted')
-//     }).catch(console.error)
-// })
-
+//Deletes comment if author is current user at DELETE: /apis/:apiId/comments/:commentId
 router.delete('/apis/:apiId/comments/:id', checkAuth, (req, res) => {
     Comment.findById(req.params.id).then(comment => {
         if(req.user._id === comment.author ) {
