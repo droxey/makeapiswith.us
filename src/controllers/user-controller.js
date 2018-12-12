@@ -19,7 +19,6 @@ router.get('/users/:id', (req, res) => {
 })
 
 //GET: returns list of APIs by specific user
-//// NOTE: // TODO: Need to test
 router.get('/users/:id/apis', (req, res) => {
     User.findById(req.params.id).populate('apis').then(user => {
         res.json(user.apis);
