@@ -32,7 +32,9 @@ This end point will return data for a specific API. It also populates the author
 This endpoint allows you to filter the APIs being returned. The API resource contains Tags to help categorize what the given API does. Just insert a tag in the route parameter and you will be returned relevant APIs.
 
 ### Posting Your Own APIs:
-If you are an authenitcated user and logged in with Github you will be able to upload your own APIs simply by making a **POST** request to **/apis**
+If you are an authenitcated user and logged in with Github you will be able to upload your own APIs simply by making a **POST** request to:
+
+    /apis
 
 The required information to POST an API is: 
 - name
@@ -54,6 +56,6 @@ In Order to post a comment you must be authenticated and logged in through Githu
 *NOTE* You can also delete comments that you are the owner of. In order to do this make a **DELETE** request to:
 
     '/apis/:apiId/comments/:commentId'
-     
+
 notice this route requires you to pass an API Id and Comment Id so the server knows the specific comment to delete.
 
