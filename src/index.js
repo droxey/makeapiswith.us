@@ -1,11 +1,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-const dotenv = require('dotenv').config();
+require('dotenv').config();
 const apiController = require('./controllers/api-controller');
 const commentController = require('./controllers/comment-controller');
 const tagController = require('./controllers/tag-controller');
-const port = process.env.PORT || 3000;
 const authController = require('./controllers/auth-controller');
 const userController = require('./controllers/user-controller');
 const passportService = require('./services/passport');
@@ -40,9 +39,8 @@ app.use('/', userController);
 
 
 ///setup server
-app.listen(port, () => {
-    console.log(`Up and running on ${port}`);
-});
+app.listen(process.env.PORT || 3000, console.log("Listening on 3000"));
+
 
 
 module.exports = app;
