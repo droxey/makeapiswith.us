@@ -1,3 +1,5 @@
+This API is currently live and hosted on Heroku: https://young-taiga-95069.herokuapp.com
+
 # 🚧 makeapiswith.us 🚧
 
 Are discoverable, testable, and well-documented APIs always on your mind?
@@ -43,7 +45,10 @@ The required information to POST an API is:
 ### Posting Comments
 All APIs can contain comments from other users about their experience using the specific API. To retrieve comments for a specific API, check out the section above titled *"Fetching APIs"*.
 
-In Order to post a comment you must be authenticated and logged in through Github. To Post a comment simply make a **POST** request to **/apis/:apiId** passing the _id of a specific API into the url so the server knows what API the comment belongs too. 
+In Order to post a comment you must be authenticated and logged in through Github. To Post a comment simply make **POST** request to:
+    '/apis/:apiId'
+ passing the _id of a specific API into the url so the server knows what API the comment belongs too. 
 
-*NOTE* You can also delete comments that you are the owner of. In order to do this make a **DELETE** request to **/apis/:apiId/comments/:commentId** notice this route requires you to pass an API Id and Comment Id so the server knows the specific comment to delete.
+*NOTE* You can also delete comments that you are the owner of. In order to do this make a **DELETE** request to:        '/apis/:apiId/comments/:commentId' 
+notice this route requires you to pass an API Id and Comment Id so the server knows the specific comment to delete.
 
