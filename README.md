@@ -17,7 +17,7 @@ All GET request endpoints are open and can be used by anyone. But if you are try
 
 ## Using The API 
 ### Fetching APIs: 
-When fetching APIs there are 3 endpoints to use. To return the API data from these routes simply make a fetch call or GET request to the given endpoint. 
+When fetching APIs there are 4 endpoints to use. To return the API data from these routes simply make a fetch call or GET request to the given endpoint. 
 
     fetch('/apis').then(// do something ... )
 
@@ -30,6 +30,10 @@ This end point will return data for a specific API. It also populates the author
     fetch('/apis/tags/:tag').then(// do something ... )
 
 This endpoint allows you to filter the APIs being returned. The API resource contains Tags to help categorize what the given API does. Just insert a tag in the route parameter and you will be returned relevant APIs.
+
+    fetch('/users/:userId/apis').then(//do something ... )
+
+This endpoint will return all APIs from a given user. The userId is passed in as a route parameter.
 
 ### Posting Your Own APIs:
 If you are an authenitcated user and logged in with Github you will be able to upload your own APIs simply by making a **POST** request to:
