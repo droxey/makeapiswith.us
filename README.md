@@ -34,7 +34,7 @@ This endpoint allows you to filter the APIs being returned. The API resource con
 ### Posting Your Own APIs:
 If you are an authenitcated user and logged in with Github you will be able to upload your own APIs simply by making a **POST** request to:
 
-    /apis
+    '/apis'
 
 The required information to POST an API is: 
 - name
