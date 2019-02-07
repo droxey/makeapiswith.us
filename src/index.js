@@ -1,46 +1,19 @@
-const express = require('express');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
-require('dotenv').config();
-const apiController = require('./controllers/api-controller');
-const commentController = require('./controllers/comment-controller');
-const tagController = require('./controllers/tag-controller');
-const authController = require('./controllers/auth-controller');
-const userController = require('./controllers/user-controller');
-const passportService = require('./services/passport');
-const passport = require('passport');
-const cookieSession = require('cookie-session');
-const app = express();
+const app = require('./config/express');
+const config = require('./config/config');
 
-///initialize passport (auth) and setup cookie session
-app.use(cookieSession({
-    maxAge: 25 * 60 * 60 * 1000,
-    keys: [process.env.COOKIE_KEY]
-}));
-app.use(passport.initialize());
-app.use(passport.session());
+mongoose.Promise = Promise;
 
+// connect to mongo db
+const mongoUri = config.mongo.host;
+mongoose.connect(
+  mongoUri,
+  { useNewUrlParser: true },
+);
+mongoose.connection.on('error', () => {
+  throw new Error(`unable to connect to database: ${mongoUri}`);
+});
 
-//Setup Middleware & Database
-mongoose.connect(process.env.MONGOD_URI || 'mongodb://localhost/make-apis-with-us', {useNewUrlParser: true});
-mongoose.connection.on('error', console.error.bind(console, 'MongoDB connection error: '))
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(bodyParser.json());
-
-
-
-
-//Setup controllers
-app.use('/', apiController);
-app.use('/', commentController);
-app.use('/', tagController);
-app.use('/', authController);
-app.use('/', userController);
-
-
-///setup server
-app.listen(process.env.PORT || 3000, console.log("Listening on 3000"));
-
-
+app.listen(config.port, () => console.log(`Running on port ${config.port}. (${config.env})`)); // eslint-disable-line no-console
 
 module.exports = app;
