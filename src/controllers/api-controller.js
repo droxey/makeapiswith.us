@@ -23,7 +23,7 @@ GET ROUTES
 
 
 ///GET: returns JSON object including all apis
-router.get('/apis', (req, res) => {
+router.get('/', (req, res) => {
     Api.find({}).then(apis => {
         console.log(req.user);
         res.json(apis)
@@ -31,7 +31,7 @@ router.get('/apis', (req, res) => {
 });
 
 ///GET: returns indiviaul api
-router.get('/apis/:id', (req, res) => {
+router.get('/:id', (req, res) => {
     Api.findById(req.params.id).populate('author').populate({
         path: 'comments',
             populate: {
@@ -42,7 +42,7 @@ router.get('/apis/:id', (req, res) => {
     }).catch(console.error)
 });
 //GET: returns post with specific tags
-router.get('/apis/tags/:tag', (req, res) => {
+router.get('/tags/:tag', (req, res) => {
     const tag = req.params.tag;
     Api.find({ tags: tag }).then(apis => {
         res.json(apis)
@@ -56,7 +56,7 @@ EDIT, POST, DELETE POSTS
 =========*/
 
 //POST: creates a new API && saves is to specific user
-router.post('/apis', checkAuth, (req, res) => {
+router.post('/', checkAuth, (req, res) => {
         const api = new Api(req.body);
         api.author = req.user._id;
         api.save().then(api => {
@@ -74,7 +74,7 @@ router.post('/apis', checkAuth, (req, res) => {
 })
 
 
-router.delete('/apis/:id', checkAuth, (req, res) => {
+router.delete('/:id', checkAuth, (req, res) => {
     
     Api.findOne({ _id: req.params.id }).then(api => {
         if (req.user._id === api.author ) {
@@ -88,7 +88,7 @@ router.delete('/apis/:id', checkAuth, (req, res) => {
 })
 
 //PUT: allows user to update specific API info ONLY IF the user trying to edit is the Author of post
-router.put('/apis/:id', checkAuth, (req, res) => {
+router.put('/:id', checkAuth, (req, res) => {
     Api.findById(req.params.id).then(api => {
         if ( api.author === req.user._id ) {
             api.set(req.body);
