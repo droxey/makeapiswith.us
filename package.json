@@ -11,10 +11,10 @@
   "author": "Connor Cahill",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.20.1",
     "cookie-session": "^2.0.0-beta.3",
     "dotenv": "^6.1.0",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "mongoose": "^5.3.9",
     "passport": "^0.4.0",
     "passport-github2": "^0.1.11"
